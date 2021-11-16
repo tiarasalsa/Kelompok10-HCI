@@ -5,3 +5,5 @@ https://youtu.be/__gY9r5kioM
 
 -Recording of Client Agreement regarding all mockups
 https://youtu.be/M8tRZbzg1yo
+
+-Hosting Link https://highnjar.000webhostapp.com/
