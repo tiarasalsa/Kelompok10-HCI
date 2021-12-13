@@ -12,3 +12,6 @@ https://youtu.be/M8tRZbzg1yo
 High N Jar merupakan sebuah website online shop skin care high end dalam bentuk share in jar. Tak hanya sebuah online shop, High N Jar juga merupakan website yang berisi review-review dari para pelanggan sebelumnya. 
 
 Jadi seorang pelanggan baru yang ingin mencoba membeli produk kami, dapat melihat review pengguna terdahulu.
+
+#Primary Features
+
