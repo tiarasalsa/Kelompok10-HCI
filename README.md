@@ -13,5 +13,22 @@ High N Jar merupakan sebuah website online shop skin care high end dalam bentuk 
 
 Jadi seorang pelanggan baru yang ingin mencoba membeli produk kami, dapat melihat review pengguna terdahulu.
 
-#Primary Features
+# Primary Features
+E-commerce
+
+# Member Contribution
+- Suhailah arfan
+Homepage
+Pemilihan color pallate
+Menghubungi client
+
+- Nindy Wahyu Setyaningsih
+Login Page
+Signup Page
+Moderator saat dengan client
+
+- Tiara Salsa Ghina
+Product page
+Notulensi hal yang dibutuhkan
+Record
 
