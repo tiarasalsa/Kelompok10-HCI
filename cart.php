@@ -2,17 +2,49 @@
 session_start();
 include 'dbconnect.php';
 
+if(!isset($_SESSION['log'])){
+	header('location:login.php');
+} else {
+	
+};
+	
+	$uid = $_SESSION['id'];
+	$caricart = mysqli_query($conn,"select * from cart where userid='$uid' and status='Cart'");
+	$fetc = mysqli_fetch_array($caricart);
+	$orderidd = $fetc['orderid'];
+	$itungtrans = mysqli_query($conn,"select count(detailid) as jumlahtrans from detailorder where orderid='$orderidd'");
+	$itungtrans2 = mysqli_fetch_assoc($itungtrans);
+	$itungtrans3 = $itungtrans2['jumlahtrans'];
+	
+if(isset($_POST["update"])){
+	$kode = $_POST['idproduknya'];
+	$jumlah = $_POST['jumlah'];
+	$q1 = mysqli_query($conn, "update detailorder set qty='$jumlah' where idproduk='$kode' and orderid='$orderidd'");
+	if($q1){
+		echo "Berhasil Update Cart
+		<meta http-equiv='refresh' content='1; url= cart.php'/>";
+	} else {
+		echo "Gagal update cart
+		<meta http-equiv='refresh' content='1; url= cart.php'/>";
+	}
+} else if(isset($_POST["hapus"])){
+	$kode = $_POST['idproduknya'];
+	$q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
+	if($q2){
+		echo "Berhasil Hapus";
+	} else {
+		echo "Gagal Hapus";
+	}
+}
 ?>
-
 <!DOCTYPE html>
 <html>
-
 <head>
-<title>HIGH n JAR'</title>
+<title>HIGH n JAR' - Keranjang Saya</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Falenda Flora, Ruben Agung Santoso" />
+<meta name="keywords" content="Tokopekita, Richard's Lab" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
@@ -39,7 +71,6 @@ include 'dbconnect.php';
 </script>
 <!-- start-smoth-scrolling -->
 </head>
-
 <style>
 	.navbar-default {
     background: none;
@@ -50,30 +81,43 @@ include 'dbconnect.php';
 	.navigation-agileits {
 	background-color: #d1b398 !important;}
 
-	.w3ls_logo_products_left h1 a {
-    font-size: 40px;
-    color: #d1b398;
-    text-decoration: none;
-    text-transform: uppercase;
-    display: block;
-    line-height: 1;
-}
+	.w3_footer_grid ul.address li i {
+    color: #e6d9c9;
+    border: 1px solid #e6d9c9;
+    padding: 0.5em;
+    margin-right: 1em;
+	}
 
-button.btn.btn-default.search {
+	button.btn.btn-default.search {
     background: #d1b398;
     padding: 11px 12px 11px;
     float: right;
     outline: none;
     border: none;
-}
+	}
 
-html, body{
+	html, body{
     font-size: 100%;
 	font-family: 'Open Sans', sans-serif;
 	background:#ece7deee;
-}
+	}
 
-.top-brands h2:after, .newproducts-w3agile h3:after, .login h2:after, .register h2:after, .faq-w3agile h3:after, .brands h3:after {
+	.breadcrumbs {
+    padding: 1.5em 0;
+    background: #ece7deee;
+	}
+	.breadcrumb1 li a {
+    color: #d0b298;
+    text-decoration: none;
+	}
+	.breadcrumb {
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    list-style: none;
+    background-color: #ece7deee;
+    border-radius: 4px;}
+
+	.top-brands h2:after, .newproducts-w3agile h3:after, .login h2:after, .register h2:after, .faq-w3agile h3:after, .brands h3:after {
     content: '';
     background: #d0b298;
     height: 2px;
@@ -81,9 +125,9 @@ html, body{
     position: absolute;
     bottom: 0%;
     left: 43%;
-}
+	}
 
-.snipcart-details input.button {
+	.snipcart-details input.button {
 	font-size: 14px;
     color: #fff;
     background: #d0b298;
@@ -98,15 +142,15 @@ html, body{
 
 	.agile_top_brand_left_grid:hover .snipcart-details input.button,.snipcart-details input.button:hover{
     background: #e6d9c9;
-}
+	}
 
-.w3_footer_grid ul.address li i {
+	.w3_footer_grid ul.address li i {
     color: #e6d9c9;
     border: 1px solid #e6d9c9;
     padding: 0.5em;
     margin-right: 1em;}
 
-.ul.multi-column-dropdown h6 {
+	.ul.multi-column-dropdown h6 {
     font-size: 20px;
     color: #d0b298;
     margin: 0 0 0em;
@@ -114,12 +158,98 @@ html, body{
     border-bottom: 1px solid #E4E4E4;
     text-transform: capitalize;}
 
-.i.blue-star {
-    color: #d0b298 !important !important;
-}
+	.snipcart-details input.button {
+    font-size: 14px;
+    color: #fff;
+    background: #d0b298;
+    text-decoration: none;
+    position: relative;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 0.5em 0;
+    outline: none;
+	}
 
-</style>
-	
+	.w3ls_logo_products_left h1 a {
+    font-size: 40px;
+    color: #d1b398;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: block;
+    line-height: 1;
+	}
+
+	.login p a {
+    color: #d1b398;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 0 0.5em;
+	}
+
+	.login p a {
+    color: #d1b398;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 0 0.5em;
+	}
+
+	.login-form-grids input[type="submit"] {
+    outline: none;
+    border: none;
+    padding: 10px 0;
+    font-size: 1em;
+    color: #fff;
+    display: block;
+    width: 100%;
+    background: #d1b398;
+    margin: 1.5em 0 0;}
+
+	.login-form-grids input[type="submit"]:hover{
+	background:#e6d9c9};
+
+	.register-home a {
+    padding: 8px 45px;
+    background: #e6d9c9;
+    color: #fff;
+    font-size: 1em;
+    text-decoration: none;	}
+
+	.register-home a{
+	padding: 8px 45px;
+    background: #e6d9c9;
+	color:#fff;
+	font-size:1em;
+	text-decoration:none;}
+
+	.register-home a:hover{
+	background:#d1b398;}
+
+	.timetable_sub th {
+    background: #e6d9c9;
+    color: #fff !important;
+    text-transform: capitalize;
+    font-size: 13px;
+    border-right: 1px solid #e6d9c9;
+	}
+
+	.checkout-left-basket h4 {
+    padding: 1em;
+    background: #d1b398;
+    font-size: 1.1em;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 1em;
+	}
+
+	.checkout h2 span {
+    color: #d1b398;
+	}
+
+
+</style>	
 <body>
 <!-- header -->
 	<div class="agileits_header">
@@ -168,7 +298,7 @@ html, body{
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="index.php">HIGH n Jar'</a></h1>
+				<h1><a href="index.php">HIGH n JAR'</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="search.php" method="post">
@@ -207,6 +337,7 @@ html, body{
 											<div class="row">
 												<div class="multi-gd-img">
 													<ul class="multi-column-dropdown">
+													
 														
 														<?php 
 														$kat=mysqli_query($conn,"SELECT * from kategori order by idkategori ASC");
@@ -233,104 +364,121 @@ html, body{
 		</div>
 		
 <!-- //navigation -->
-	<!-- main-slider -->
-		<ul id="demo1">
-			<li>
-				<img src="images/banner.jpg" alt="" />
-			</li>
-			<li>
-				<img src="images/www.highnjar.com.png" alt="" />
-			</li>
-			
-			<li>
-				<img src="images/banner.jpg" alt="" />
-			</li>
-		</ul>
-	<!-- //main-slider -->
-	<!-- //top-header and slider -->
-	<!-- top-brands -->
-	<div class="top-brands">
+<!-- breadcrumbs -->
+	<div class="breadcrumbs">
 		<div class="container">
-		<h2>Produk Kami</h2>
-			<div class="grid_3 grid_5">
-				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-					<div id="myTabContent" class="tab-content">
-						<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
-							<div class="agile-tp">
-								<h5>Penawaran Terbaik Minggu Ini
-								<?php
-								if(!isset($_SESSION['name'])){
-									
-								} else {
-									echo 'Untukmu, '.$_SESSION['name'].'!';
-								}
-								?>
-								</h5>
-								</div>
-							<div class="agile_top_brands_grids">
+			<ol class="breadcrumb breadcrumb1">
+				<li><a href="index.php">Home</a></li>
+				<li class="active">Checkout</li>
+			</ol>
+		</div>
+	</div>
+<!-- //breadcrumbs -->
+<!-- checkout -->
+	<div class="checkout">
+		<div class="container">
+			<h2>Dalam keranjangmu ada : <span><?php echo $itungtrans3 ?> barang</span></h2>
+			<div class="checkout-right">
+				<table class="timetable_sub">
+					<thead>
+						<tr>
+							<th>No.</th>	
+							<th>Produk</th>
+							<th>Nama Produk</th>
+							<th>Jumlah</th>
 							
-							<?php 
-											$brgs=mysqli_query($conn,"SELECT * from produk order by idproduk ASC");
-											$no=1;
-											while($p=mysqli_fetch_array($brgs)){
-
-												?>
-								<div class="col-md-4 top_brand_left">
-									<div class="hover14 column">
-										<div class="agile_top_brand_left_grid">
-											<div class="agile_top_brand_left_grid_pos">
-												<img src="images/sale.png" alt=" " class="img-responsive" />
-											</div>
-											<div class="agile_top_brand_left_grid1">
-												<figure>
-													<div class="snipcart-item block" >
-														<div class="snipcart-thumb">
-															<a href="product.php?idproduk=<?php echo $p['idproduk'] ?>"><img title=" " alt=" " src="<?php echo $p['gambar']?>" width="200px" height="200px" /></a>		
-															<p><?php echo $p['namaproduk'] ?></p>
-															<div class="stars">
-															<?php
-															$bintang = '<i class="fa fa-star yellow-star" aria-hidden="true"></i>';
-															$rate = $p['rate'];
-															
-															for($n=1;$n<=$rate;$n++){
-																echo '<i class="fa fa-star yellow-star" aria-hidden="true"></i>';
-															};
-															?>
-															</div>
-															<h4>Rp<?php echo number_format($p['hargaafter']) ?> <span>Rp<?php echo number_format($p['hargabefore']) ?></span></h4>
-														</div>
-														<div class="snipcart-details top_brand_home_details">
-																<fieldset>
-																	<a href="product.php?idproduk=<?php echo $p['idproduk'] ?>"><input type="submit" class="button" value="Lihat Produk" /></a>
-																</fieldset>
-														</div>
-													</div>
-												</figure>
-											</div>
-										</div>
-									</div>
-								</div>
-								<?php
-											}
-								?>
-								
-								
-								<div class="clearfix"> </div>
-							</div>
-						</div>
 						
-											
-					</div>
+							<th>Harga Satuan</th>
+							<th>Hapus</th>
+						</tr>
+					</thead>
+					
+					<?php 
+						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
+						$no=1;
+						while($b=mysqli_fetch_array($brg)){
+
+					?>
+					<tr class="rem1"><form method="post">
+						<td class="invert"><?php echo $no++ ?></td>
+						<td class="invert"><a href="product.php?idproduk=<?php echo $b['idproduk'] ?>"><img src="<?php echo $b['gambar'] ?>" width="100px" height="100px" /></a></td>
+						<td class="invert"><?php echo $b['namaproduk'] ?></td>
+						<td class="invert">
+							 <div class="quantity"> 
+								<div class="quantity-select">                     
+									<input type="number" name="jumlah" class="form-control" height="100px" value="<?php echo $b['qty'] ?>" \>
+								</div>
+							</div>
+						</td>
+				
+						<td class="invert">Rp<?php echo number_format($b['hargaafter']) ?></td>
+						<td class="invert">
+							<div class="rem">
+							
+								<input type="submit" name="update" class="form-control" value="Update" \>
+								<input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
+								<input type="submit" name="hapus" class="form-control" value="Hapus" \>
+							</form>
+							</div>
+							<script>$(document).ready(function(c) {
+								$('.close1').on('click', function(c){
+									$('.rem1').fadeOut('slow', function(c){
+										$('.rem1').remove();
+									});
+									});	  
+								});
+						   </script>
+						</td>
+					</tr>
+					<?php
+						}
+					?>
+					
+								<!--quantity-->
+									<script>
+									$('.value-plus').on('click', function(){
+										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+										divUpd.text(newVal);
+									});
+
+									$('.value-minus').on('click', function(){
+										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+										if(newVal>=1) divUpd.text(newVal);
+									});
+									</script>
+								<!--quantity-->
+				</table>
+			</div>
+			<div class="checkout-left">	
+				<div class="checkout-left-basket">
+					<h4>Total Harga</h4>
+					<ul>
+						<?php 
+						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
+						$no=1;
+						$subtotal = 10000;
+						while($b=mysqli_fetch_array($brg)){
+						$hrg = $b['hargaafter'];
+						$qtyy = $b['qty'];
+						$totalharga = $hrg * $qtyy;
+						$subtotal += $totalharga
+						?>
+						<li><?php echo $b['namaproduk']?><i> - </i> <span>Rp<?php echo number_format($totalharga) ?> </span></li>
+						<?php
+						}
+						?>
+						<li>Total (inc. 10k Ongkir)<i> - </i> <span>Rp<?php echo number_format($subtotal) ?></span></li>
+					</ul>
 				</div>
+				<!-- <div class="checkout-right-basket"> 
+					<a href="index.php"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
+					<a href="checkout.php"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>Checkout</a>
+				</div>
+				<div class="clearfix"> </div>-->
 			</div>
 		</div>
 	</div>
-<!-- //top-brands -->
-
-
-
-
-
+<!-- //checkout -->
 <!-- //footer -->
 <div class="footer">
 		<div class="container">
@@ -351,7 +499,7 @@ html, body{
 		<div class="footer-copy">
 			
 			<div class="container">
-				<p>© 2021 High n Jar'</p>
+				<p>© 2021 HIGH n JAR'</p>
 			</div>
 		</div>
 		
