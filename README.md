@@ -23,9 +23,8 @@ Pemilihan color pallate,
 Menghubungi client
 
 - Nindy Wahyu Setyaningsih
-Login Page,
-Signup Page,
-Moderator saat dengan client
+Membuat halaman home page, cart ,checkout, daftar order, dan membuat koneksi ke database, serta mendesain halaman dengan pada file style.css
+menjadi moderator saat melakukan meeting bersama klient
 
 - Tiara Salsa Ghina
 Product page,
