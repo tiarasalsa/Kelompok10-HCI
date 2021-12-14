@@ -18,17 +18,19 @@ E-commerce
 
 # Member Contribution
 - Suhailah arfan
-Homepage
-Pemilihan color pallate
+Homepage,
+Pemilihan color pallate,
 Menghubungi client
 
 - Nindy Wahyu Setyaningsih
-Login Page
-Signup Page
+Login Page,
+Signup Page,
 Moderator saat dengan client
 
 - Tiara Salsa Ghina
-Product page
-Notulensi hal yang dibutuhkan
-Record
+Product page,
+Notulensi hal yang dibutuhkan,
+Record,
+Upload file : boostrap.css, error_log, kategori.php, konfirmasi.php, login.php, logout.php
+
 
