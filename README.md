@@ -8,6 +8,9 @@ https://youtu.be/M8tRZbzg1yo
 
 -Hosting Link https://highnjar.000webhostapp.com/
 
+Recording of Client User Testing 
+https://youtu.be/CVRVs9EH-9I
+
 # Project Description
 High N Jar merupakan sebuah website online shop skin care high end dalam bentuk share in jar. Tak hanya sebuah online shop, High N Jar juga merupakan website yang berisi review-review dari para pelanggan sebelumnya. 
 
