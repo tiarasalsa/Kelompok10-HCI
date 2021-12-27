@@ -1,14 +1,14 @@
 # High N Jar'
 
--Recording of Client Decision of Front Page choice
+- Recording of Client Decision of Front Page choice
 https://youtu.be/__gY9r5kioM
 
--Recording of Client Agreement regarding all mockups
+- Recording of Client Agreement regarding all mockups
 https://youtu.be/M8tRZbzg1yo
 
--Hosting Link https://highnjar.000webhostapp.com/
+- Hosting Link https://highnjar.000webhostapp.com/
 
-Recording of Client User Testing 
+- Recording of Client User Testing 
 https://youtu.be/CVRVs9EH-9I
 
 # Project Description
